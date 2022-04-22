@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 //routes
 const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin/auth");
 //env vriables
 env.config();
 
@@ -22,6 +23,7 @@ mongoose
 app.use(bodyParser());
 
 app.use("/api", authRoutes);
+app.use("/api", adminRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`serve is running on the port ${process.env.PORT}`);
