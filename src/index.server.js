@@ -26,5 +26,5 @@ app.use("/api", authRoutes);
 app.use("/api", adminRoutes);
 
 app.listen(process.env.PORT, () => {
-  console.log(`serve is running on the port ${process.env.PORT}`);
+  console.log(`server is running on the port ${process.env.PORT}`);
 });
