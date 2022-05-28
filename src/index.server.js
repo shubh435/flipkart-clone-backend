@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const env = require("dotenv");
 const mongoose = require("mongoose");
+const cors = require("cors");
 //routes
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin/auth");
@@ -20,9 +21,12 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("database connected");
+    console.log("database connected successfully");
+  })
+  .catch((error) => {
+    console.log(error);
   });
-
+app.use(cors());
 app.use(express.json());
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 
@@ -35,3 +39,4 @@ app.use("/api", cartRoutes);
 app.listen(process.env.PORT, () => {
   console.log(`server is running on the port ${process.env.PORT}`);
 });
+
