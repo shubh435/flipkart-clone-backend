@@ -43,7 +43,7 @@ exports.signin = (req, res) => {
           }
         );
         const { _id, firstName, email, lastName, role, fullName } = user;
-        res.cookie("token", token, { expiresIn: "1h" });
+        res.cookie("token", token, { expiresIn: "3d" });
         res.status(200).json({
           token,
           user: {
