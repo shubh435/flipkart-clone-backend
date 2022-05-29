@@ -34,9 +34,7 @@ app.use("/api", adminRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", cartRoutes);
-app.get("/", (req, res) => {
-  res.send("Flipkart backned shubham");
-});
+
 app.listen(process.env.PORT, () => {
   console.log(`server is running on the port ${process.env.PORT}`);
 });
