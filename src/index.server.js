@@ -15,12 +15,14 @@ const initailDataRoutes = require("./routes/admin/initialData");
 env.config();
 
 //mongodb connection
-
 mongoose
-  .connect(`mongodb://localhost:27017/${process.env.MONGO_DB_DATABASE}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.9y08pu7.mongodb.net/${process.env.MONGO_DB_DATABASE}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("database connected successfully");
   })
