@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/index.server.js",
-    "build": "[my-framework] build --output public"
+    "start": "nodemon ./src/index.server.js"
   },
   "author": "shubham sarode",
   "license": "ISC",
