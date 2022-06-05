@@ -1,0 +1,10 @@
+{
+  "projectName": "flipkarbackend",
+  "meta": {
+    "type": "backend"
+  },
+  "backend": {
+    "platform": "node16"
+  },
+  "hash": "bcbac6be"
+}

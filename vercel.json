@@ -1,14 +1,23 @@
 {
   "name": "backend_app",
   "version": 2,
-  "env": {
-    "PORT": "2000",
-    "MONGO_DB_USER": "root",
-    "MONGO_DB_PASSWORD": "bpCeJTnctKuPKOer",
-    "MONGO_DB_DATABASE": "ecommerce",
-    "JWT_SECRET": "MERNSECRET",
-    "API": "http://localhost:2000"
+  "build": {
+    "env": {
+      "PORT": "2000",
+      "MONGO_DB_USER": "root",
+      "MONGO_DB_PASSWORD": "bpCeJTnctKuPKOer",
+      "MONGO_DB_DATABASE": "ecommerce",
+      "JWT_SECRET": "MERNSECRET",
+      "API": "http://localhost:2000"
+    }
   },
+
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "*.py", "use": "@vercel/python" },
+    { "src": "*.js", "use": "@vercel/node" }
+  ],
+
   "headers": [
     {
       "source": "./src/index.server.js",
