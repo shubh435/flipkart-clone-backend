@@ -4,6 +4,7 @@ const {
   addCategory,
   getCategories,
   editCategories,
+  deleteCategories,
 } = require("../controllers/category");
 const path = require("path");
 const multer = require("multer");
@@ -28,5 +29,6 @@ router.post(
 );
 router.post("/category/edit", upload.array("categoryImage"), editCategories);
 router.get("/category/getCategory", getCategories);
+router.post("/category/delete", deleteCategories);
 
 module.exports = router;

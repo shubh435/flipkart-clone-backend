@@ -1,5 +1,6 @@
 const slugify = require("slugify");
 const Category = require("../models/category");
+const shortid = require("shortid");
 function createCategories(categories, parentId = null) {
   const categoriesList = [];
   let category;
@@ -23,7 +24,7 @@ function createCategories(categories, parentId = null) {
 exports.addCategory = (req, res) => {
   const categoryObj = {
     name: req.body.name,
-    slug: slugify(req.body.name),
+    slug: `${shortid.generate(4)}_${slugify(req.body.name)}`,
   };
   if (req.file) {
     categoryObj.categoryImage =
@@ -63,7 +64,7 @@ exports.editCategories = async (req, res) => {
         category.parentId = parentId[i];
       }
       const updatedCategory = await Category.findOneAndUpdate(
-        { _id : _id[i] },
+        { _id: _id[i] },
         category,
         { new: true }
       );
@@ -79,13 +80,24 @@ exports.editCategories = async (req, res) => {
       category.parentId = parentId;
     }
 
-    const updatedCategory = await Category.findOneAndUpdate(
-      { _id},
-      category,
-      {
-        new: true,
-      }
-    );
+    const updatedCategory = await Category.findOneAndUpdate({ _id }, category, {
+      new: true,
+    });
     return res.status(201).json({ updatedCategory });
+  }
+};
+
+exports.deleteCategories = async (req, res) => {
+  const { ids } = req.body.payload;
+  let deletedCategoriesArray = [];
+  for (let i = 0; i < ids.length; i++) {
+    const deleteCategory = await Category.findOneAndDelete({ _id: ids[i]._id });
+    deletedCategoriesArray.push(deleteCategory);
+  }
+
+  if (deletedCategoriesArray.length === ids.length) {
+    res.status(200).json({ message: "Categories deleted" });
+  } else {
+    res.status(500).json({ message: "something is missed" });
   }
 };

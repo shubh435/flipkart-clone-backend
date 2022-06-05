@@ -22,7 +22,7 @@ exports.signup = (req, res) => {
     });
     _user.save((error, data) => {
       if (error) {
-        return res.status(400).json({
+        return res.status(500).json({
           message: "something went wrong",
         });
       }
@@ -65,7 +65,7 @@ exports.signin = (req, res) => {
         });
       }
     } else {
-      return res.status(400).json({ message: "something went wrong" });
+      return res.status(500).json({ message: "something went wrong" });
     }
   });
 };
