@@ -11,6 +11,7 @@ const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 const cartRoutes = require("./routes/cart");
 const initailDataRoutes = require("./routes/admin/initialData");
+const pagesRoutes = require("./routes/admin/page");
 //env vriables
 env.config();
 
@@ -38,9 +39,7 @@ app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", initailDataRoutes);
-app.get("/", (req, res) => {
-  res.send("Flipkart backned shubham");
-});
+app.use("/api", pagesRoutes);
 app.listen(process.env.PORT, () => {
   console.log(`server is running on the port ${process.env.PORT}`);
 });
