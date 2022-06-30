@@ -13,15 +13,41 @@ exports.createPage = (req, res) => {
       navigateTo: `productClicked?categoryId=${req.body.category}&type=${req.body.type}`,
     }));
   }
+  req.body.createdBy = req.user._id;
   try {
-    req.body.createdBy = req.user._id;
-    const page = new Page(req.body);
-    page.save((error, page) => {
-      if (error) return res.status(400).json({ error });
+    Page.findOne({ category: req.body.category }).exec((error, page) => {
+      if (error) {
+        return res.status(400).json({ error });
+      }
+      if (page) {
+        Page.findOneAndUpdate({ category: req.body.category }, req.body).exec(
+          (error, updatePage) => {
+            if (error) return res.status(400).json({ error });
+            if (updatePage) {
+              return res.status(200).json({ page: updatePage });
+            }
+          }
+        );
+      } else {
+        const page = new Page(req.body);
+        page.save((error, page) => {
+          if (error) return res.status(400).json({ error });
 
-      if (page) return res.status(200).json({ page });
+          if (page) return res.status(200).json({ page });
+        });
+      }
     });
   } catch (errors) {
-    res.status(400).json({ errors: errors.message });
+    res.status(500).json({ errors: errors.message });
+  }
+};
+
+exports.getPage = (req, res) => {
+  const { category, type } = req.params;
+  if (type === "Page") {
+    Page.findOne({ category: category }).exec((error, page) => {
+      if (error) return res.status(400).json({ error });
+      if (page) return res.status(200).json({ page });
+    });
   }
 };

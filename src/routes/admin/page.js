@@ -1,6 +1,10 @@
 const express = require("express");
-const { upload, requireSignin, adminMiddleWare } = require("../../common-middleware");
-const { createPage } = require("../../controllers/admin/page");
+const {
+  upload,
+  requireSignin,
+  adminMiddleWare,
+} = require("../../common-middleware");
+const { createPage, getPage } = require("../../controllers/admin/page");
 const router = express.Router();
 
 router.post(
@@ -10,5 +14,6 @@ router.post(
   upload.fields([{ name: "banners" }, { name: "products" }]),
   createPage
 );
+router.get("/page/get", getPage);
 
 module.exports = router;
