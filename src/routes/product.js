@@ -1,6 +1,10 @@
 const express = require("express");
 const { requireSignin, adminMiddleWare } = require("../common-middleware");
-const { createProducts, getProductsBySlug } = require("../controllers/product");
+const {
+  createProducts,
+  getProductsBySlug,
+  getProductDetailsById,
+} = require("../controllers/product");
 const router = express.Router();
 const multer = require("multer");
 const shortId = require("shortid");
@@ -22,6 +26,7 @@ router.post(
   upload.array("productPicture"),
   createProducts
 );
-router.get("/product/:slug",  getProductsBySlug );
+router.get("/products/:slug", getProductsBySlug);
+router.get("/product/:productId", getProductDetailsById);
 // router.get("/product/getCategory", getCategories);
 module.exports = router;

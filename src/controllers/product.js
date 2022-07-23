@@ -34,7 +34,7 @@ exports.createProducts = (req, res) => {
 exports.getProductsBySlug = (req, res) => {
   let { slug } = req.params;
 
-  Category.findOne({ slug: slug})
+  Category.findOne({ slug: slug })
     .select("_id")
     .exec((error, category) => {
       if (error) res.status(400).json({ error });
@@ -72,4 +72,18 @@ exports.getProductsBySlug = (req, res) => {
         });
       }
     });
+};
+
+exports.getProductDetailsById = (req, res) => {
+  let { productId } = req.params;
+  if (productId) {
+    Product.find({ _id: productId }).exec((error, product) => {
+      if (error) return res.status(400).json({ error });
+      if (product) {
+        res.status(200).json({ product });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Parameter required" });
+  }
 };
